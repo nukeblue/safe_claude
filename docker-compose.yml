@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  dev-env:
+    build: .
+    image: dev-env:latest
+    container_name: dev-environment
+    ports:
+      - "3000:3000"  # React/Node dev server
+      - "8000:8000"  # Python HTTP server
+      - "8080:8080"  # General web port
+    volumes:
+      - .:/app
+	  - ~/.ssh:/home/devuser/.ssh
+      - /app/node_modules  # Prevent overwriting node_modules
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    environment:
+      - NODE_ENV=development
+    command: zsh
